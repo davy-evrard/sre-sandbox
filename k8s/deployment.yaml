@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sre-app-deployment
+spec:
+  replicas: 3               # <--- 3 Replicas for High Availability
+  selector:
+    matchLabels:
+      app: sre-app
+  template:
+    metadata:
+      labels:
+        app: sre-app
+    spec:
+      containers:
+      - name: sre-app
+        image: sre-sandbox-app:latest
+        imagePullPolicy: Never   # IMPORTANT for Minikube: Use local image only
+        ports:
+        - containerPort: 8000
