@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # 1. Your Python App
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    container_name: sre-app
+
+  # 2. Prometheus (The Database)
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - app
+
+  # 3. Grafana (The Dashboard)
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
