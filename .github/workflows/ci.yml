@@ -10,6 +10,9 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    defaults: 
+      run:
+        working-directory: ./sre-sandbox/app
 
     steps:
     # 1. Check out the code from GitHub
